@@ -1,0 +1,17 @@
+{
+    "datanodes": ["127.0.0.1:5001", "127.0.0.1:5002", "127.0.0.1:5003", "127.0.0.1:5004"],
+    "max_chunk_size": 134217728,
+    "replica_set": 3,
+    "max_thread_concurrency": 3,
+    "datanodes_setting": {
+        "datanode1": {"host": "127.0.0.1", "port": 5001, "storage": "/home/user/hmdfs/data/", "port_gencom": 8861},
+        "datanode2": {"host": "127.0.0.1", "port": 5002, "storage": "/home/user/hmdfs/data/", "port_gencom": 8862},
+        "datanode3": {"host": "127.0.0.1", "port": 5003, "storage": "/home/user/hmdfs/data/", "port_gencom": 8863},
+	"datanode4": {"host": "127.0.0.1", "port": 5004, "storage": "/home/user/hmdfs/data/", "port_gencom": 8864}
+    },
+    "namenodes": ["127.0.0.1:8000", "127.0.0.1:8001"],
+    "namenodes_setting": {
+        "namenode1": {"host": "127.0.0.1", "port": 8000, "port_heartbeat": 8765, "host_metadata": "127.0.0.1", "port_metadata": 27017, "priority": 1},
+        "namenode2": {"host": "127.0.0.1", "port": 8001, "port_heartbeat": 8766, "host_metadata": "127.0.0.1", "port_metadata": 27018, "priority": 2}
+    }
+}
