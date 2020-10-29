@@ -2,7 +2,9 @@
 
 ### H(M)DFS - HandMade Distributed File System
 
-The HandMade Distributed File System - H(M)DFS - is an implementation of a distributed file system realized by Marco Pavia that runs in a cluster of nodes and is designed to be fault-tolerant. There are two types of nodes: 
+The HandMade Distributed File System - H(M)DFS - is an implementation of a distributed file system realized by Marco Pavia that runs in a cluster of nodes and is designed to be fault-tolerant. 
+The system has been implemented in Python 3.7 and any machine that supports Python 3 can run the software.
+There are two types of nodes: 
 
 - the Namenodes: they manage the file system namespace and metadata and regulate access to files by clients;
 - the Datanodes: they manage the storage.
