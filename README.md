@@ -28,5 +28,11 @@ The communication protocols used are:
 We will discuss more in detail the communication between the different elements of the system later.
 Each Datanode sends a heartbeat message to the master Namenode periodically. When the Namenode doesn't receive any heartbeat from a Datanode after a certain time interval, the Namenode marks it as down (or dead) and starts the recovery process, that is start creating new replicas for the primary or secondary chunks which were handled by the failed Datanode. When the Datanode will be recovered from the disaster, then the Namenode starts the flush process, that is start deleting from the recovered Datanode the chunks that previously were handled by it and now are handled by other Datanodes. The Datanodes send heartbeats to what they recognize as the master Namenode; if the Master Namenode goes down, then the Datanodes will choose another Namenode that becomes the new master and start to send heartbeats to this new master Namenode. The new  master is choosen using a priority list of Datanodes; the prioritization can be configured. 
 
+### H(M)DFS - Reading process communication schema
+
 ![Screenshot](images/read_process.PNG)
+
+### H(M)DFS - Writing process communication schema
+
+![Screenshot](images/write_process.PNG)
 
