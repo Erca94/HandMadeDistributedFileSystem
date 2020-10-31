@@ -31,7 +31,7 @@ The communication protocols used are:
 We will discuss more in detail the communication between the different elements of the system later.
 Each Datanode sends a heartbeat message to the master Namenode periodically. When the Namenode doesn't receive any heartbeat from a Datanode after a certain time interval, the Namenode marks it as down (or dead) and starts the recovery process, that is start creating new replicas for the primary or secondary chunks which were handled by the failed Datanode. When the Datanode will be recovered from the disaster, then the Namenode starts the flush process, that is start deleting from the recovered Datanode the chunks that previously were handled by it and now are handled by other Datanodes. The Datanodes send heartbeats to what they recognize as the master Namenode; if the Master Namenode goes down, then the Datanodes will choose another Namenode that becomes the new master and start to send heartbeats to this new master Namenode. The new  master is choosen using a priority list of Datanodes; the prioritization can be configured. 
 
-## H(M)DFS - Reading process communication schema
+## Reading process communication schema
 
 ![Screenshot](images/read_process.PNG)
 
@@ -45,7 +45,7 @@ The schema above represents a typical communication schema of what happens when 
 - phases 6.1, ..., 6.M: the Datanode gets the chunk content for the chunk required from its local file system and provides the client with the chunk content;
 - phase 7 (optional): if the invocation is a file get, then the file will be rebuild using the chunks contents got sorted by the chunks sequences numbers and the file will be saved on the client local file system; instead, if the invocation is just a file read, then the file will not be saved on the client local file system, but just showed. 
 
-## H(M)DFS - Writing process communication schema
+## Writing process communication schema
 
 ![Screenshot](images/write_process.PNG)
 
@@ -62,7 +62,7 @@ The schema above represents a typical communication schema of what happens when 
 - pahses 9.1, ..., 9.M-1: for each chunk, after the primary Datanode has completed to write the chunk on the local file system, it publishes a message on a publish/subscribe system in order to start the replica writing process on the other secondary Datanodes; so the primary Datanode executes a HTTP put request on the first secondary Datanode, then the first secondary Datanode executes a HTTP put request on the second secondary Datanode and so on; 
 - phases 10.1, ..., 10.M: for each chunk, the primary Datanode gives an HTTP put response for signilaing the writing process has ended. 
 
-## H(M)DFS - Heartbeats process and recovery from failure schemas
+## Heartbeats process and recovery from failure schemas
 
 ![Screenshot](images/heartbeats.PNG)
 
@@ -87,7 +87,7 @@ The schema above shows what happens if one of the Datanodes goes down, so the re
 
 The image above represents the situation after having recovered from failure. Once the failed Datanode has been restored and is up again, the chunks previously handled by it will be deleted.
 
-## H(M)DFS - Available commands in H(M)DFS
+## Available commands in H(M)DFS
 
 The commands a client can invoke are the following:
 
@@ -119,7 +119,7 @@ The commands a client can invoke are the following:
 - **usermod USERNAME USER GROUPS{1,N} OPERATION**: comand used for adding (OPERATION = +) or removing (OPERATION = -) a user from groups; only the root can execute this command; example: **usermod root user group1 group2 group3 +**
 - **status USERNAME**: command used for checking the status of the system; it gives info about Datanodes and Namenodes, telling if they are up or down. example: **status root**
     
-## H(M)DFS - Initialization
+## Initialization
 
 The first time a user wants to start the Datanodes and the Namenodes, the MongoDB instances that handle the namespace and the metadata have not neither the database nor the collections nor the documents inside of them; so the admin must do the first initialization for all the Namenodes; to make it, the admin must run the script **first_initialization.py** from the console passing the name of the Namenode as paramert (the name of the Namenode is present in the configuration file, for example namenode1); obviously, the MongoDB instances must be running. At this point, the admin can run the Namenodes and the Datanodes on the different nodes. 
 When the H(M)DFS is either initializated or reset with mkfs command, two user will be created:
@@ -130,7 +130,7 @@ When the H(M)DFS is either initializated or reset with mkfs command, two user wi
 Also two directories will be created, the first one is the root directory "/" and second one is the home directory "/user" for the user "user". 
 Each time a new user will be added to the system, a home directory for the new user will be created.
 
-## H(M)DFS - Installation and configuration
+## Installation and configuration
 
 For installing and testing the H(M)DFS, just clone this repository and make sure you have Python3 installed for all the nodes (both the Datanodes and the Namenodes and the client) and the needed MongoDB instances installed (just for the Namenodes). The MongoDB version used for developing is the v4.2.7, while the Python3 version is the 3.7.3. Besides MongoDB and Python3, you must have other Python dependencies/modules installed (listed in the file requirements.txt). 
 After having cloned the repository, you must do some configurations in the file **conf.json**; the file has the following fields:
@@ -157,6 +157,10 @@ After having configured the system, the admin must just to run the Datanodes and
 to run a Namenode, go on the shell and type: **python3 namenode.py NAMENODE_NUMBER**; example: **python3 namenode.py namenode1**
 
 to run a Datanode, go on the shell and type: **python3 datanode.py DATANODE_NUMBER**; example: **python3 datanode.py datanode1**
+
+As explained previously, at the beginning there will be two users available: 
+- the first one is the root, for the admin, **username**: root, **password**: root1. 
+- the second one is the default user, **username**: user, **password**: user1. 
 
 That's it, the game is done!
 
