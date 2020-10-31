@@ -1,9 +1,12 @@
 # HandMadeDistributedFileSystem
 
-### H(M)DFS - HandMade Distributed File System
+## H(M)DFS - HandMade Distributed File System
 
-The HandMade Distributed File System - H(M)DFS - is an implementation of a distributed file system realized by Marco Pavia that runs in a cluster of nodes and is designed to be fault-tolerant. 
+The HandMade Distributed File System - H(M)DFS - is a simplified implementation of a distributed file system realized by Marco Pavia that runs in a cluster of nodes and is designed to be fault-tolerant. 
 The system has been implemented in Python 3.7 and any machine that supports Python 3 can run the software.
+
+## Architecture description
+
 There are two types of nodes: 
 
 - the Namenodes: they manage the file system namespace and metadata, regulate access to files and directories by clients;
@@ -28,11 +31,21 @@ The communication protocols used are:
 We will discuss more in detail the communication between the different elements of the system later.
 Each Datanode sends a heartbeat message to the master Namenode periodically. When the Namenode doesn't receive any heartbeat from a Datanode after a certain time interval, the Namenode marks it as down (or dead) and starts the recovery process, that is start creating new replicas for the primary or secondary chunks which were handled by the failed Datanode. When the Datanode will be recovered from the disaster, then the Namenode starts the flush process, that is start deleting from the recovered Datanode the chunks that previously were handled by it and now are handled by other Datanodes. The Datanodes send heartbeats to what they recognize as the master Namenode; if the Master Namenode goes down, then the Datanodes will choose another Namenode that becomes the new master and start to send heartbeats to this new master Namenode. The new  master is choosen using a priority list of Datanodes; the prioritization can be configured. 
 
-### H(M)DFS - Reading process communication schema
+## H(M)DFS - Reading process communication schema
 
 ![Screenshot](images/read_process.PNG)
 
-### H(M)DFS - Writing process communication schema
+The schema above represents a typical communication schema of what happens when a client wants to get/read a file; during the process can be identified different phases:
+
+- pahse 1: the client invokes a get/read command, and calls a remote procedure using XML-RPC on the master Namenode;
+- pahse 2: the Namenode gets the information required for the file from the MongoDB instance on which it maintains the metadata regarding the file system namespace, executing a query; by the way, there's a series of checks regarding the permissions of the user who required the file; 
+- phase 3: MongoDB provides the Namenode with the document which represents the file, inside of this there are all the information about it, e.g. the file name, the creation and update time, the parent directory and, the most important thing, which are the Datanodes that handle the primary and secondary chunks on which there is the real content of the file;
+- phase 4: the Namenode provides the client with the info regarding the file needed for getting the content from the Datanodes;
+- phases 5.1, ..., 5.M: the client starts some HTTP get requests using the REST web services exposed by the Namenodes for getting the chunks content; during these phases, for each chunk, the client executes a get request on the Datanode which handles the current chunk passing the file id that represents the file uniquely and the chunk sequence number; for each chunk, the first request is done on the primary Datanode handler for it and, if the primary Datanode is down, then it's started another request on the secondary Datanoted, and so on;
+- phases 6.1, ..., 6.M: the Datanode gets the chunk content for the chunk required from its local file system and provides the client with the chunk content;
+- phase 7 (optional): if the invocation is a file get, then the file will be rebuild using the chunks contents got sorted by the chunks sequences numbers and the file will be saved on the client local file system; instead, if the invocation is just a file read, then the file will not be saved on the client local file system, but just showed. 
+
+## H(M)DFS - Writing process communication schema
 
 ![Screenshot](images/write_process.PNG)
 
