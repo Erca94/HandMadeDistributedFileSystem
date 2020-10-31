@@ -126,6 +126,6 @@ When the H(M)DFS is either initializated or reset with mkfs command, two user wi
 - the "root" user: the admin user, who can execute every command;
 - the "user" user: the default user.
 
-Also two folder will be created, the first one is the root folder "/" and second one is the home directory for the user "user". 
+Also two folder will be created, the first one is the root directory "/" and second one is the home directory "/user" for the user "user". 
 Each time a new user will be added to the system, a home directory for the new user will be created.
 
