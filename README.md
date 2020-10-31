@@ -74,8 +74,18 @@ The schema above shows what happens if the master Namenode goes down; if the Dat
 
 ![Screenshot](images/recover_from_datanode_failure_1.PNG)
 
+The schema above shows what happens if one of the Datanodes goes down, so the recovery process from failure; the master Namenode considers a Datanode as down if it doens't receive any heartbeat from it for more than 10 seconds; now, imagine that one of the Datanode fails and the master Namenode has detected its failure; during the recovery process can be identified different phases:
+
+- pahse 1: the master Namenodes chooses which are the new primary and secondary Datanodes which must handle the replicas of the chunks previously handled by the failed Datanode and update its MongoDB instance for the file system namespace;
+- pahse 2: MongoDB update its collection and gives a feedback to the master Namenode; during this phase, also the chunks that must be deleted from the failed Datanode after it will have been restored will be registered;
+- phases 3.1, ..., 3.N: the master Namenode invokes a XML-RPC in order to align the other Namenodes; 
+- phases 4.1, ..., 4.N: the other Namenodes give a feedback to the master Namenode;
+- phases 5.1, ..., 5.M-1: the master Namenode executes some HTTP put requests in order to write the chunks on the new primary and secondary Datanodes for each chunk handled by the failed Datanode; 
+- phases 6.1, ..., 6.M-1: the Datanodes, after having written the new replicas, give a HTTP response to the master Namenode. 
+
 ![Screenshot](images/recover_from_datanode_failure_2.PNG)
 
+The image above represents the situation after having recovered from failure. Once the failed Datanode has been restored and is up again, the chunks previously handled by it will be deleted.
 
 
 
