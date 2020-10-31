@@ -118,4 +118,14 @@ The commands a client can invoke are the following:
 - passwd <USERNAME> <USER> <NEW_PASSWORD>: command used for changing the password of a user; only the root or the user itself can execute this command;
 - usermod <USERNAME> <USER> <GROUPS>{1,N} <OPERATION>: comand used for adding or removing a user from groups; only the root can execute this command;
 - status <USERNAME>: command used for checking the status of the system; it gives info about Datanodes and Namenodes, telling if they are up or down. 
+    
+## H(M)DFS - Initialization
+
+When the H(M)DFS is either initializated or reset with mkfs command, two user will be created:
+
+- the "root" user: the admin user, who can execute every command;
+- the "user" user: the default user.
+
+Also two folder will be created, the first one is the root folder "/" and second one is the home directory for the user "user". 
+Each time a new user will be added to the system, a home directory for the new user will be created.
 
