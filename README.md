@@ -47,5 +47,5 @@ The schema above represents a typical communication schema of what happens when 
 
 ## H(M)DFS - Writing process communication schema
 
-![Screenshot](images/write_process.PNG)
+
 
