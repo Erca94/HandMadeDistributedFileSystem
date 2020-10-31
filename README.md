@@ -91,7 +91,7 @@ The image above represents the situation after having recovered from failure. On
 
 The commands a client can invoke are the following:
 
-- **mkdir** <USERNAME> <PATH> <PARENT>: command user for creating a new directory; with the option PARENT (allowed values are T and F) it's possible also to create the ancestor it they doesn't exist; example: mkdir user /user/new/directory T
+- mkdir <USERNAME> <PATH> <PARENT>: command user for creating a new directory; with the option PARENT (allowed values are T and F) it's possible also to create the ancestor it they doesn't exist; example: mkdir user /user/new/directory T
 - **touch** <USERNAME> <PATH>: command used for creating a new empty file if it doens't exists or for touching an existing directory/file; example: touch user /user/file.txt
 - **ls** <USERNAME> <PATH>: command used for listing the content of a directory; example: ls user /user/
 - **rm** <USERNAME> <PATH>: command used for removing a file or an empty directory; example: rm user /user/file.txt
