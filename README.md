@@ -139,18 +139,18 @@ After having cloned the repository, you must do some configurations in the file 
 - **replica_set**: the replication factor of each chunk; e.g. 3 means a primary replica and 2 secondary replicas;
 - **max_thread_concurrency**: the concurrency factor with whom the operations of writing/reading on the Datanodes are done;
 - **datanodes_setting**: the settings of each Datanode:
- - **host**: the ip address on which the Datanode is exposed; 
- - **port**: the port on which the Datanode exposes the REST web services;
- - **storage**: the directory on which the chunks will be saved;
- - **port_gencom**: the port used for sending the heartbeats and receiving the responses from the master Namenode; 
+  - **host**: the ip address on which the Datanode is exposed; 
+  - **port**: the port on which the Datanode exposes the REST web services;
+  - **storage**: the directory on which the chunks will be saved;
+  - **port_gencom**: the port used for sending the heartbeats and receiving the responses from the master Namenode; 
 - **namenodes**: a list of the Namenodes;
 - **namenodes_setting**: the settings of each Namenode:
- - **host**: the ip address on which the Namenode is exposed;
- - **port**: the port on which the Namenode exposes the XML-RPC;
- - **port_heartbeat**: the port used for receiving the heartbeats from the Datanodes;
- - **host_metadata**: the ip address on which is exposed the MongoDB instance for this Namenode, it could be the localhost or also an instance external to the Namenode;
- - **port_metadata**: the port on which is exposed the MongoDB instance for this Namenode;
- - **priority**: the priority of the Namenode.
+  - **host**: the ip address on which the Namenode is exposed;
+  - **port**: the port on which the Namenode exposes the XML-RPC;
+  - **port_heartbeat**: the port used for receiving the heartbeats from the Datanodes;
+  - **host_metadata**: the ip address on which is exposed the MongoDB instance for this Namenode, it could be the localhost or also an instance external to the Namenode;
+  - **port_metadata**: the port on which is exposed the MongoDB instance for this Namenode;
+  - **priority**: the priority of the Namenode.
 
 
 
