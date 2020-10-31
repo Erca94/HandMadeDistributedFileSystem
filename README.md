@@ -35,7 +35,7 @@ Each Datanode sends a heartbeat message to the master Namenode periodically. Whe
 
 ![Screenshot](images/read_process.PNG)
 
-The schema above represents a typical communication schema of what happens when a client wants to get/read a file; during the process can be identified different phases:
+The schema above represents a typical communication schema of what happens when a client wants to get/read a file from the H(M)DFS; during the process can be identified different phases:
 
 - pahse 1: the client invokes a get/read command, and calls a remote procedure using XML-RPC on the master Namenode;
 - pahse 2: the Namenode gets the information required for the file from the MongoDB instance on which it maintains the metadata regarding the file system namespace, executing a query; by the way, there's a series of checks regarding the permissions of the user who required the file; 
@@ -48,4 +48,17 @@ The schema above represents a typical communication schema of what happens when 
 ## H(M)DFS - Writing process communication schema
 
 ![Screenshot](images/writing_process.PNG)
+
+The schema above represents a typical communication schema of what happens when a client wants to write a file to the H(M)DFS; during the process can be identified different phases:
+
+- pahse 1: the client invokes a write command, and calls a remote procedure using XML-RPC on the master Namenode;
+- pahse 2: the Namenode create the MongoDB document and chooses which are the Datanodes that handle the primary and secondary replicas of each chunk in which the file will be divided; the Namenode execute the insert of the document into MongoDB
+- phase 3: MongoDB insert the document representing the file into the fs collection and provides the Namenode with unique id of the file document just inserted; 
+- phases 4.1, ... 4.N: the master Namenode aligns the other Namenodes with the file info just created and invokes a XML-RPC to do it for each Namenode that is up;
+- phases 5.1, ..., 5.N: the Namenodes give a feedback to the master Namenode about the alignment of their MongoDb instances;
+- phases 6: the Datanode provides the client with the list of the chunks to write and the respective primary and secondary Datanodes that will handle the replicas of each chunk; 
+- phase 7: the client gets the file content from the local file system;
+- phases 8.1, ..., 8.M: the client starts some HTTP put requests using the REST web services exposed by the Namenodes for writing the chunks content; during these phases, for each chunk, the client executes a put request on the primary Datanode designed to handle the current chunk passing the file id that represents the file uniquely, the chunk sequence number, the chunks content and the list of the secondary Datanodes for the current chunks;
+- pahses 9.1, ..., 9.M-1: for each chunk, after the primary Datanode has completed to write the chunk on the local file system, it publishes a message on a publish/subscribe system in order to start the replica writing process on the other secondary Datanodes; so the primary Datanode executes a HTTP put request on the first secondary Datanode, then the first secondary Datanode executes a HTTP put request on the second secondary Datanode and so on; 
+- phases 10.1, ..., 10.M: for each chunk, the primary Datanode gives an HTTP put response for signilaing the writing process has ended. 
 
