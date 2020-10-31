@@ -152,6 +152,7 @@ After having cloned the repository, you must do some configurations in the file 
   - **port_metadata**: the port on which is exposed the MongoDB instance for this Namenode;
   - **priority**: the priority of the Namenode.
 
-
-
+After having configured the system, the admin must just to run the Datanodes and Namenodes; 
+to run a Namenode, go on the shell and type: **python3 namenode.py NAMENODE_NUMBER**; example: **python3 namenode.py namenode1**
+to run a Datanode, go on the shell and type: **python3 datanode.py DATANODE_NUMBER**; example: **python3 datanode.py datanode1**
 
