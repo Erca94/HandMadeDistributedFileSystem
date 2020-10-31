@@ -87,8 +87,35 @@ The schema above shows what happens if one of the Datanodes goes down, so the re
 
 The image above represents the situation after having recovered from failure. Once the failed Datanode has been restored and is up again, the chunks previously handled by it will be deleted.
 
+## H(M)DFS - Available commands in H(M)DFS
 
+The commands a client can invoke are the following:
 
-
-
+- mkdir <USERNAME> <PATH> <PARENT>: command user for creating a new directory; with the option PARENT it's possible also to create the ancestor it they doesn't exist;
+- touch <USERNAME> <PATH>: command used for creating a new empty file if it doens't exists or for touching an existing directory/file;
+- ls <USERNAME> <PATH>: command used for listing the content of a directory;
+- rm <USERNAME> <PATH>: command used for removing a file or an empty directory;
+- rmr <USERNAME> <PATH>: command used for removing a directory and its content recursively or a single file;
+- get_file <USERNAME> <PATH> <LOCAL_FILE_PATH>: command used for getting/donloading a file from the H(M)DFS and copying it into the client local file system; 
+- get_chunks <USERNAME> <PATH>: command used for getting info about the chunks and Datanodes that handle them for a file;
+- cat <USERNAME> <PATH>: command used for viewing the content of a file
+- head <USERNAME> <NUMBER_OF_BYTES> <PATH>: command used for viewing the first N bytes of a file content
+- tail <USERNAME> <NUMBER_OF_BYTES> <PATH>: command used for viewing the last N bytes of a file content
+- cp <USERNAME> <ORIG_PATH> <DEST_PATH>: command used for copying a file into another file (if the destination path already exists, the system raises an exception because it does not overwrite)
+- mv <USERNAME> <ORIG_PATH> <DEST_PATH>: command used for moving or renaming a file/directory into another file/directory (if the destination path already exists, the system raises an exception because it does not overwrite)
+- count <USERNAME> <PATH>: command used for counting the number of files and directories inside a directory;
+- countr <USERNAME> <PATH>: command used for counting the number of files and directories inside a directory recursively;
+- du <USERNAME> <PATH>: command used for calculating the disk usage (in bytes) of a directory or a file;
+- chown <USERNAME> <PATH> <NEW_OWN>: command used for changing the owner of a file/directory; only the root or the owner of the file/directory can execute this command;
+- chgrp <USERNAME> <PATH> <NEW_GRP>: command used for changing the group of a file/directory; only the root or the owner of the file/directory can execute this command;
+- chmod <USERNAME> <PATH> <NEW_MOD>: command used for changing the permissions of a file/directory; only the root or the owner of the file/directory can execute this command;
+- put_file <USERNAME> <LOCAL_FILE_PATH> <PATH>: command used for putting/copying a file from the client local file system to the H(M)DFS; 
+- mkfs <USERNAME>: command used for resetting the entire H(M)DFS, all the directories and the files inside the system will be deleted;
+- groupadd <USERNAME> <GROUP>: command used for creating a new group in the H(M)DFS; only the root can execute this command;
+- useradd <USERNAME> <USER> <PASSWORD>: command used for creating a new user in the H(M)DFS; only the root can execute this command;
+- groupdel <USERNAME> <GROUP>: command used for deleting a group from the H(M)DFS; only the root can execute this command;
+- userdel <USERNAME> <USER>: command used for deleting a user from the H(M)DFS; only the root can execute this command;
+- passwd <USERNAME> <USER> <NEW_PASSWORD>: command used for changing the password of a user; only the root or the user itself can execute this command;
+- usermod <USERNAME> <USER> <GROUPS>{1,N} <OPERATION>: 
+- status <USERNAME>:  
 
