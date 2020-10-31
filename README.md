@@ -121,7 +121,7 @@ The commands a client can invoke are the following:
     
 ## H(M)DFS - Initialization
 
-When the H(M)DFS is either initializated or reset with mkfs command, two user will be created:
+The first time a user wants to start the Datanodes and the Namenodes, the MongoDB instances that handle the namespace and the metadata have not neither the database nor the collections nor the documents inside of them; so the admin must do the first initialization for all the Namenodes; to make it, the admin must run the script first_initialization.py from the console passing the name of the Namenode as paramert (the name of the Namenode is present in the configuration file, for example namenode1). When the H(M)DFS is either initializated or reset with mkfs command, two user will be created:
 
 - the "root" user: the admin user, who can execute every command;
 - the "user" user: the default user.
