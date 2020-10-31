@@ -62,3 +62,23 @@ The schema above represents a typical communication schema of what happens when 
 - pahses 9.1, ..., 9.M-1: for each chunk, after the primary Datanode has completed to write the chunk on the local file system, it publishes a message on a publish/subscribe system in order to start the replica writing process on the other secondary Datanodes; so the primary Datanode executes a HTTP put request on the first secondary Datanode, then the first secondary Datanode executes a HTTP put request on the second secondary Datanode and so on; 
 - phases 10.1, ..., 10.M: for each chunk, the primary Datanode gives an HTTP put response for signilaing the writing process has ended. 
 
+## H(M)DFS - Heartbeats process and recovery from failure schemas
+
+![Screenshot](images/heartbeats.PNG)
+
+The schema above shows the typical heartbeats communication schema; each Datanode must send an heartbeat to the current master Namenode every 2 seconds in order to demonstrate its good health; the master Namenode, when receives a heartbeat from a Datanode, will send a response to it; the protocol used for sending heartbeats and sending responses to them is the WebSocket. 
+
+![Screenshot](images/namenode_failure.PNG)
+
+The schema above shows what happens if the master Namenode goes down; if the Datanode that has sent the heartbeat doesn't receive any response from the master Namenode (the WebSocket fails), then it waits 5 seconds before sending another heartbeat; if the WebSocket fails for 5 consecutives times, then the next Namenode with the highest priority between the other active Datanodes becomes the new master one.
+
+![Screenshot](images/recover_from_datanode_failure_1.PNG)
+
+![Screenshot](images/recover_from_datanode_failure_2.PNG)
+
+
+
+
+
+
+
