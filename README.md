@@ -47,7 +47,7 @@ The schema above represents a typical communication schema of what happens when 
 
 ## H(M)DFS - Writing process communication schema
 
-![Screenshot](images/writing_process.PNG)
+![Screenshot](images/write_process.PNG)
 
 The schema above represents a typical communication schema of what happens when a client wants to write a file to the H(M)DFS; during the process can be identified different phases:
 
