@@ -4,7 +4,7 @@ import sys
 from bson.objectid import ObjectId
 import datetime 
 
-namenode = 'namenode1'
+namenode = sys.argv[1]
 
 #get the configurations
 with open('conf.json') as f: 
