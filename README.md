@@ -136,7 +136,7 @@ For installing and testing the H(M)DFS, just clone this repository and make sure
 After having cloned the repository, you must do some configurations in the file **conf.json**; the file has the following fields:
 - **datanodes**: a list of the Datanodes;
 - **max_chunk_size**: the maximum size of each chunk, in bytes;
-- **replica_set**: the replication factor of each chunk; e.g. 3 means a primary replica and 2 secondary replicas;
+- **replica_set**: the replication factor of each chunk; e.g. 3 means a primary replica and 2 secondary replicas; make sure the replica set is at leat equal to the numebr of Datanodes available, otherwise the system goes in error; 
 - **max_thread_concurrency**: the concurrency factor with whom the operations of writing/reading on the Datanodes are done;
 - **datanodes_setting**: the settings of each Datanode:
   - **host**: the ip address on which the Datanode is exposed; 
