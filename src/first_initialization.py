@@ -4,7 +4,6 @@ import sys
 from bson.objectid import ObjectId
 import datetime 
 
-#namenode = sys.agrv[1]
 namenode = 'namenode1'
 
 #get the configurations
