@@ -93,31 +93,31 @@ The commands a client can invoke are the following:
 
 - **mkdir <USERNAME> <PATH> <PARENT>**: command user for creating a new directory; with the option PARENT (allowed values are T and F) it's possible also to create the ancestor it they doesn't exist; example: mkdir user /user/new/directory T
 - **touch <USERNAME> <PATH>**: command used for creating a new empty file if it doens't exists or for touching an existing directory/file; example: touch user /user/file.txt
-- ls <USERNAME> <PATH>: command used for listing the content of a directory; example: ls user /user/
-- rm <USERNAME> <PATH>: command used for removing a file or an empty directory; example: rm user /user/file.txt
-- rmr <USERNAME> <PATH>: command used for removing a directory and its content recursively or a single file; example: rmr user /user/directory_to_rem
-- get_file <USERNAME> <PATH> <LOCAL_FILE_PATH>: command used for getting/donloading a file from the H(M)DFS and copying it into the client local file system; example: get user /user/file.txt /home/linuxuser/file.txt
-- get_chunks <USERNAME> <PATH>: command used for getting info about the chunks and Datanodes that handle them for a file; example: get_chunks user /user/file.txt
-- cat <USERNAME> <PATH>: command used for viewing the content of a file; example: cat user /user/file.txt
-- head <USERNAME> <NUMBER_OF_BYTES> <PATH>: command used for viewing the first N bytes of a file content; example: head user 100 /user/file.txt
-- tail <USERNAME> <NUMBER_OF_BYTES> <PATH>: command used for viewing the last N bytes of a file content; example: tail user 100 /user/file.txt
-- cp <USERNAME> <ORIG_PATH> <DEST_PATH>: command used for copying a file into another file (if the destination path already exists, the system raises an exception because it does not overwrite); example: cp user /user/file.txt /user/copy.txt
-- mv <USERNAME> <ORIG_PATH> <DEST_PATH>: command used for moving or renaming a file/directory into another file/directory (if the destination path already exists, the system raises an exception because it does not overwrite); mv user /user/old_name.txt /user/new_name.txt
-- count <USERNAME> <PATH>: command used for counting the number of files and directories inside a directory; example: count user /user
-- countr <USERNAME> <PATH>: command used for counting the number of files and directories inside a directory recursively; example: countr user /user
-- du <USERNAME> <PATH>: command used for calculating the disk usage (in bytes) of a directory or a file; example: du user /user
-- chown <USERNAME> <PATH> <NEW_OWN>: command used for changing the owner of a file/directory; only the root or the owner of the file/directory can execute this command; example: chown root /user/file.txt new_user
-- chgrp <USERNAME> <PATH> <NEW_GRP>: command used for changing the group of a file/directory; only the root or the owner of the file/directory can execute this command; example: chgrp root /user/file.txt new_group
-- chmod <USERNAME> <PATH> <NEW_MOD>: command used for changing the permissions of a file/directory; only the root or the owner of the file/directory can execute this command; example: chmod root /user/file.txt 777
-- put_file <USERNAME> <LOCAL_FILE_PATH> <PATH>: command used for putting/copying a file from the client local file system to the H(M)DFS; example: put_file user /home/linuxuser/file.txt /user/file.txt
-- mkfs <USERNAME>: command used for resetting the entire H(M)DFS, all the directories and the files inside the system will be deleted; example: mkfs root
-- groupadd <USERNAME> <GROUP>: command used for creating a new group in the H(M)DFS; only the root can execute this command; example: groupadd root new_group
-- useradd <USERNAME> <USER> <PASSWORD>: command used for creating a new user in the H(M)DFS; only the root can execute this command; example: useradd root new_user
-- groupdel <USERNAME> <GROUP>: command used for deleting a group from the H(M)DFS; only the root can execute this command; example: groupdel root group_to_del
-- userdel <USERNAME> <USER>: command used for deleting a user from the H(M)DFS; only the root can execute this command; example: userdel root user_to_del
-- passwd <USERNAME> <USER> <NEW_PASSWORD>: command used for changing the password of a user; only the root or the user itself can execute this command; example: passwd user user new_password
-- usermod <USERNAME> <USER> <GROUPS>{1,N} <OPERATION>: comand used for adding (OPERATION = +) or removing (OPERATION = -) a user from groups; only the root can execute this command; example: usermod root user group1 group2 group3 +
-- status <USERNAME>: command used for checking the status of the system; it gives info about Datanodes and Namenodes, telling if they are up or down. example: status root
+- **ls <USERNAME> <PATH>**: command used for listing the content of a directory; example: ls user /user/
+- **rm <USERNAME> <PATH>**: command used for removing a file or an empty directory; example: rm user /user/file.txt
+- **rmr <USERNAME> <PATH>**: command used for removing a directory and its content recursively or a single file; example: rmr user /user/directory_to_rem
+- **get_file <USERNAME> <PATH> <LOCAL_FILE_PATH>**: command used for getting/donloading a file from the H(M)DFS and copying it into the client local file system; example: get user /user/file.txt /home/linuxuser/file.txt
+- **get_chunks <USERNAME> <PATH>**: command used for getting info about the chunks and Datanodes that handle them for a file; example: get_chunks user /user/file.txt
+- **cat <USERNAME> <PATH>**: command used for viewing the content of a file; example: cat user /user/file.txt
+- **head <USERNAME> <NUMBER_OF_BYTES> <PATH>**: command used for viewing the first N bytes of a file content; example: head user 100 /user/file.txt
+- **tail <USERNAME> <NUMBER_OF_BYTES> <PATH>**: command used for viewing the last N bytes of a file content; example: tail user 100 /user/file.txt
+- **cp <USERNAME> <ORIG_PATH> <DEST_PATH>**: command used for copying a file into another file (if the destination path already exists, the system raises an exception because it does not overwrite); example: cp user /user/file.txt /user/copy.txt
+- **mv <USERNAME> <ORIG_PATH> <DEST_PATH>**: command used for moving or renaming a file/directory into another file/directory (if the destination path already exists, the system raises an exception because it does not overwrite); mv user /user/old_name.txt /user/new_name.txt
+- **count <USERNAME> <PATH>**: command used for counting the number of files and directories inside a directory; example: count user /user
+- **countr <USERNAME> <PATH>**: command used for counting the number of files and directories inside a directory recursively; example: countr user /user
+- **du <USERNAME> <PATH>**: command used for calculating the disk usage (in bytes) of a directory or a file; example: du user /user
+- **chown <USERNAME> <PATH> <NEW_OWN>**: command used for changing the owner of a file/directory; only the root or the owner of the file/directory can execute this command; example: chown root /user/file.txt new_user
+- **chgrp <USERNAME> <PATH> <NEW_GRP>**: command used for changing the group of a file/directory; only the root or the owner of the file/directory can execute this command; example: chgrp root /user/file.txt new_group
+- **chmod <USERNAME> <PATH> <NEW_MOD>**: command used for changing the permissions of a file/directory; only the root or the owner of the file/directory can execute this command; example: chmod root /user/file.txt 777
+- **put_file <USERNAME> <LOCAL_FILE_PATH> <PATH>**: command used for putting/copying a file from the client local file system to the H(M)DFS; example: put_file user /home/linuxuser/file.txt /user/file.txt
+- **mkfs <USERNAME>: command used for resetting the entire H(M)DFS, all the directories and the files inside the system will be deleted; example: mkfs root
+- **groupadd <USERNAME> <GROUP>**: command used for creating a new group in the H(M)DFS; only the root can execute this command; example: groupadd root new_group
+- **useradd <USERNAME> <USER> <PASSWORD>**: command used for creating a new user in the H(M)DFS; only the root can execute this command; example: useradd root new_user
+- **groupdel <USERNAME> <GROUP>**: command used for deleting a group from the H(M)DFS; only the root can execute this command; example: groupdel root group_to_del
+- **userdel <USERNAME> <USER>**: command used for deleting a user from the H(M)DFS; only the root can execute this command; example: userdel root user_to_del
+- **passwd <USERNAME> <USER> <NEW_PASSWORD>**: command used for changing the password of a user; only the root or the user itself can execute this command; example: passwd user user new_password
+- **usermod <USERNAME> <USER> <GROUPS>{1,N} <OPERATION>**: comand used for adding (OPERATION = +) or removing (OPERATION = -) a user from groups; only the root can execute this command; example: usermod root user group1 group2 group3 +
+- **status <USERNAME>**: command used for checking the status of the system; it gives info about Datanodes and Namenodes, telling if they are up or down. example: status root
     
 ## H(M)DFS - Initialization
 
