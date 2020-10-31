@@ -1,0 +1,6 @@
+requests
+pymongo
+Flask
+Flask-RESTful
+PyPubSub
+websockets
