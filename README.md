@@ -116,6 +116,6 @@ The commands a client can invoke are the following:
 - groupdel <USERNAME> <GROUP>: command used for deleting a group from the H(M)DFS; only the root can execute this command;
 - userdel <USERNAME> <USER>: command used for deleting a user from the H(M)DFS; only the root can execute this command;
 - passwd <USERNAME> <USER> <NEW_PASSWORD>: command used for changing the password of a user; only the root or the user itself can execute this command;
-- usermod <USERNAME> <USER> <GROUPS>{1,N} <OPERATION>: 
-- status <USERNAME>:  
+- usermod <USERNAME> <USER> <GROUPS>{1,N} <OPERATION>: comand used for adding or removing a user from groups; only the root can execute this command;
+- status <USERNAME>: command used for checking the status of the system; it gives info about Datanodes and Namenodes, telling if they are up or down. 
 
