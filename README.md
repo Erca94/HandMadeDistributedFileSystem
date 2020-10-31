@@ -121,7 +121,7 @@ The commands a client can invoke are the following:
     
 ## H(M)DFS - Initialization
 
-The first time a user wants to start the Datanodes and the Namenodes, the MongoDB instances that handle the namespace and the metadata have not neither the database nor the collections nor the documents inside of them; so the admin must do the first initialization for all the Namenodes; to make it, the admin must run the script **first_initialization.py** from the console passing the name of the Namenode as paramert (the name of the Namenode is present in the configuration file, for example namenode1). At this point, the admin can run the Namenodes and the Datanodes on the different nodes. 
+The first time a user wants to start the Datanodes and the Namenodes, the MongoDB instances that handle the namespace and the metadata have not neither the database nor the collections nor the documents inside of them; so the admin must do the first initialization for all the Namenodes; to make it, the admin must run the script **first_initialization.py** from the console passing the name of the Namenode as paramert (the name of the Namenode is present in the configuration file, for example namenode1); obviously, the MongoDB instances must be running. At this point, the admin can run the Namenodes and the Datanodes on the different nodes. 
 When the H(M)DFS is either initializated or reset with mkfs command, two user will be created:
 
 - the "root" user: the admin user, who can execute every command;
@@ -129,4 +129,34 @@ When the H(M)DFS is either initializated or reset with mkfs command, two user wi
 
 Also two directories will be created, the first one is the root directory "/" and second one is the home directory "/user" for the user "user". 
 Each time a new user will be added to the system, a home directory for the new user will be created.
+
+## H(M)DFS - Installation and configuration
+
+For installing and testing the H(M)DFS, just clone this repository and make sure you have Python3 installed for all the nodes (both the Datanodes and the Namenodes and the client) and the needed MongoDB instances installed (just for the Namenodes). The MongoDB version used for developing is the v4.2.7, while the Python3 version is the 3.7.3. Besides MongoDB and Python3, you must have other Python dependencies/modules installed (listed in the file requirements.txt). 
+After having cloned the repository, you must do some configurations in the file **conf.json**; the file has the following fields:
+- **datanodes**: a list of the Datanodes;
+- **max_chunk_size**: the maximum size of each chunk, in bytes;
+- **replica_set**: the replication factor of each chunk; e.g. 3 means a primary replica and 2 secondary replicas;
+- **max_thread_concurrency**: the concurrency factor with whom the operations of writing/reading on the Datanodes are done;
+- **datanodes_setting**: the settings of each Datanode:
+  - **host**: the ip address on which the Datanode is exposed; 
+  - **port**: the port on which the Datanode exposes the REST web services;
+  - **storage**: the directory on which the chunks will be saved;
+  - **port_gencom**: the port used for sending the heartbeats and receiving the responses from the master Namenode; 
+- **namenodes**: a list of the Namenodes;
+- **namenodes_setting**: the settings of each Namenode:
+  - **host**: the ip address on which the Namenode is exposed;
+  - **port**: the port on which the Namenode exposes the XML-RPC;
+  - **port_heartbeat**: the port used for receiving the heartbeats from the Datanodes;
+  - **host_metadata**: the ip address on which is exposed the MongoDB instance for this Namenode, it could be the localhost or also an instance external to the Namenode;
+  - **port_metadata**: the port on which is exposed the MongoDB instance for this Namenode;
+  - **priority**: the priority of the Namenode.
+
+After having configured the system, the admin must just to run the Datanodes and Namenodes; 
+
+to run a Namenode, go on the shell and type: **python3 namenode.py NAMENODE_NUMBER**; example: **python3 namenode.py namenode1**
+
+to run a Datanode, go on the shell and type: **python3 datanode.py DATANODE_NUMBER**; example: **python3 datanode.py datanode1**
+
+That's it, the game is done!
 
