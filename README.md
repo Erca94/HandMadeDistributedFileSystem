@@ -89,7 +89,7 @@ The image above represents the situation after having recovered from failure. On
 
 ## Available commands in H(M)DFS
 
-The commands a client can invoke are the following:
+Before starting talking about the available commands, remember that **EVERY PATH YOU USE IN H(M)DFS MUST BE ABSOLUTE**. The commands a client can invoke are the following:
 
 - **mkdir USERNAME PATH PARENT**: command user for creating a new directory; with the option PARENT (allowed values are T and F) it's possible also to create the ancestor it they doesn't exist; example: **mkdir user /user/new/directory T**
 - **touch USERNAME PATH**: command used for creating a new empty file if it doens't exists or for touching an existing directory/file; example: **touch user /user/file.txt**
